@@ -1,0 +1,116 @@
+Python e Pandas para atacar um problema da Farmácia
+
+
+Google Drive > Mais > Google Colaboratory
+
+DOCUMENTAÇÃO PANDA: https://pandas.pydata.org/docs/
+https://pandas.pydata.org/docs/reference/index.html#api
+
+
+-----
+import pandas as pd
+
+urld_dados='https://github.com/alura-cursos/imersaodados3/blob/main/dados/dados_experimentos.zip?raw=true';
+
+dados=pd.read_dsv(url_dados, compression='zip')
+dados
+
+-----
+
+PYTHON começa com 0.
+
+CÉLULA
+
+Estrutura da célula:
+Membrana citoplasmatica que vai separar o interior da célula do exterior da célula.
+Dentro da célula tem o Núcleo e dentro do núcleo tem o DNA, que fica protegido dentro do núcleo.
+
+DNA- TODA A INFORMAÇÃO GENÉTICA.
+
+Genes são porções do DNA, que são "receitas" de como sintetizar a proteína.
+Para sintetizar a proteína precisa de um "intermediário", o chamado RNA Mensageiro. 
+A proteína é sintetizada fora do núcleo, para isto a informação precisa caminhar da parte interna para a externa e quem carrega esta informação é o RNA Mensageiro.
+
+
+SITUAÇÃO NORMAL
+Em uma situação normal um Gene produtos 4 RNAs, expressão gênica = 1X.
+
+GENE > 4 RNAs - Expressão Gênica = 1x
+
+Situação: estímulo X
+
+Mas pode ser que esta célula seja submetida a um estímulo "perturbante", externo ou interno e pode aumentar a expressão gênica.
+
+GENE > 8 RNAs - Expressão Gênica = 2x
+
+Situação: estímulo Y
+
+Pode diminuir também a expressão gênica.
+
+GENE > 2 RNAs - Expressão Gênica = 0,5x
+
+
+DESAFIOS
+
+DESAFIO 1: 
+Investigar por que a classe tratamento é tão desbalanceada.
+
+Resposta: A quantidade de tipos de drogas é grande, exigindo uma grande quantidade de testes com cada. O que acaba resultando em um número muito maior de testes feitos quando comparado aos de controle.
+
+dados["tratamento"].value_counts()
+
+
+DESAFIO 2:
+Plotar as 5 últimas linhas da tabela
+Resposta: Para exibir as últimas linhas da tabela é utilizado o tail.
+
+dados.tail()
+
+
+DESAFIO 3: 
+Proporção das classes tratamento.
+
+
+dados['tratamento'].value_counts(normalize = True)
+dados['dose'].value_counts(normalize = True)
+
+dados['tratamento'].value_counts().plot.pie()
+dados['dose'].value_counts().plot.pie()
+
+
+DESAFIO 4: 
+
+Quantos tipos de drogas foram investigados?
+
+Resposta: 3289
+
+Desafio 5: 
+Procurar na documentação o método query(pandas).
+Resposta: Utilizando o método query, é possível filtrar utilizando condições. Por exemplo filtrar somente os tratados com_droga,com 24 horas de tempo e dose D1.Resposta: Utilizando o método query, é possível filtrar utilizando condições. Por exemplo filtrar somente os tratados com_droga,com 24 horas de tempo e dose D1.
+dados.query('tempo == "24" && tratamento== "com_droga" && dose== "D1"');
+
+Desafio 06:
+Renomear as colunas tirando o hífen.
+
+Resposta: existem vários métodos e funções que permitem retirar o hífen, como por exemplo o o str.replace, que é utilizdo em várias linguagens de programação diferentes.
+ 
+dados.columns = dados.columns.str.replace("-","")
+dados
+
+Desafio 07: Deixar os gráficos bonitos: alterar título e label. 
+Resposta: Conforme dica do Professor, um boa saída é utilizar o Matplotlib.pyplot.
+
+
+import matplotlib.pyplot as grafico
+
+dados['tratamento'].value_counts().plot.bar()
+grafico.title("Tratamentos")
+grafico.xlabel("Tipos Utilizados")
+grafico.ylabel("Quantidade Testada")
+grafico.show
+
+
+Desafio 08: Resumo do que você aprendeu com os dados.
+Como filtrar informações de maneira eficiente e que permitam um melhor entendimento sobre aquilo que está sendo analisando, mesmo que não saiba a fundo sobre o que exatamente os dados são.
+
+
